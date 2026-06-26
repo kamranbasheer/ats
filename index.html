@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ATS tracker for job applications with analytics" />
+  <title>ATS Tracker - Kamran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-shape bg-shape--one" aria-hidden="true"></div>
+  <div class="bg-shape bg-shape--two" aria-hidden="true"></div>
+
+  <section id="authGate" class="auth-gate">
+    <div class="auth-card">
+      <p class="eyebrow">Private ATS</p>
+      <h1 id="authTitle">Sign In</h1>
+      <p id="authSubtitle" class="subtitle">Use your credentials to access your application tracker.</p>
+      <form id="authForm" class="auth-form">
+        <label>
+          Email
+          <input id="authEmail" type="email" required placeholder="you@example.com" />
+        </label>
+        <label>
+          Password
+          <input id="authPassword" type="password" required minlength="6" placeholder="Enter password" />
+        </label>
+        <label id="confirmWrap" class="is-hidden">
+          Confirm Password
+          <input id="authConfirm" type="password" minlength="6" placeholder="Confirm password" />
+        </label>
+        <p id="authError" class="auth-error is-hidden"></p>
+        <div class="auth-actions">
+          <button id="authSubmit" class="btn btn--primary" type="submit">Sign In</button>
+          <button id="createAccountBtn" class="btn btn--secondary" type="button">Create Account</button>
+          <button id="resetLoginBtn" class="btn btn--ghost" type="button">Reset Login</button>
+        </div>
+        <p id="resetHint" class="reset-hint">Use Reset Login if you want to create a new email/password on this browser.</p>
+      </form>
+    </div>
+  </section>
+
+  <div id="appRoot" class="is-hidden">
+
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">Personal Job Ops</p>
+      <h1>Application Tracker</h1>
+      <p class="subtitle">Track every application, stage, rejection reason, CV version, and hiring funnel performance in one place.</p>
+    </div>
+    <div class="header-actions">
+      <button id="logoutBtn" class="btn btn--ghost" type="button">Log Out</button>
+      <button id="exportBtn" class="btn btn--ghost" type="button">Export JSON</button>
+      <label class="btn btn--ghost file-btn" for="importFile">Import JSON</label>
+      <input id="importFile" type="file" accept="application/json" hidden />
+      <button id="sampleBtn" class="btn btn--secondary" type="button">Load Sample Data</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="card form-card">
+      <div class="card-head">
+        <h2>Add / Update Application</h2>
+      </div>
+
+      <form id="applicationForm" class="app-form">
+        <input id="applicationId" type="hidden" />
+
+        <div class="form-grid">
+          <label>
+            Company Name
+            <input id="company" name="company" required placeholder="Example: Hey Holy" />
+          </label>
+
+          <label>
+            Job Position
+            <input id="position" name="position" required placeholder="Customer Success Team Lead" />
+          </label>
+
+          <label>
+            Date Applied
+            <input id="appliedDate" name="appliedDate" type="date" required />
+          </label>
+
+          <label>
+            Current Status
+            <select id="status" name="status" required>
+              <option value="applied">Applied</option>
+              <option value="in-progress">In Progress</option>
+              <option value="offer">Offer</option>
+              <option value="rejected">Rejected</option>
+              <option value="withdrawn">Withdrawn</option>
+            </select>
+          </label>
+
+          <label>
+            Current Stage
+            <select id="stage" name="stage" required>
+              <option value="application">Application Submitted</option>
+              <option value="screening">CV Screening</option>
+              <option value="hr-interview">HR Interview</option>
+              <option value="hiring-manager">Hiring Manager Interview</option>
+              <option value="case-study">Case Study / Task</option>
+              <option value="final-interview">Final Interview</option>
+              <option value="offer">Offer</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </label>
+
+          <label>
+            CV Used
+            <select id="cvUsed" name="cvUsed" required>
+              <option value="cv-en.html">cv-en.html</option>
+              <option value="cv-de.html">cv-de.html</option>
+              <option value="cv-team-lead.html">cv-team-lead.html</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+
+          <label>
+            Source
+            <input id="source" name="source" required placeholder="LinkedIn" />
+          </label>
+
+          <label>
+            Salary Range (Optional)
+            <input id="salaryRange" name="salaryRange" placeholder="Example: 58k-68k EUR" />
+          </label>
+        </div>
+
+        <label>
+          Notes
+          <textarea id="notes" name="notes" rows="3" placeholder="What went well, concerns, prep notes, follow-up actions..."></textarea>
+        </label>
+
+        <div id="rejectionFields" class="rejection-block is-hidden">
+          <label>
+            Rejection Stage
+            <select id="rejectionStage" name="rejectionStage">
+              <option value="">Select stage</option>
+              <option value="screening">CV Screening</option>
+              <option value="hr-interview">HR Interview</option>
+              <option value="hiring-manager">Hiring Manager Interview</option>
+              <option value="case-study">Case Study / Task</option>
+              <option value="final-interview">Final Interview</option>
+            </select>
+          </label>
+          <label>
+            Rejection Reason
+            <textarea id="rejectionReason" name="rejectionReason" rows="2" placeholder="Reason from recruiter or your own analysis"></textarea>
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn--primary" type="submit">Save Application</button>
+          <button id="resetBtn" class="btn btn--ghost" type="button">Reset Form</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card analytics-card">
+      <div class="card-head">
+        <h2>Analytics</h2>
+        <p>Quick view of funnel health and CV performance.</p>
+      </div>
+
+      <div class="kpi-grid" id="kpiGrid"></div>
+
+      <div class="analytics-grid">
+        <article class="panel">
+          <h3>Rejections by Stage</h3>
+          <div id="rejectionChart" class="bar-chart"></div>
+        </article>
+
+        <article class="panel">
+          <h3>Applications by CV</h3>
+          <div id="cvChart" class="bar-chart"></div>
+        </article>
+
+        <article class="panel panel--wide">
+          <h3>Monthly Trend (Last 6 Months)</h3>
+          <div id="trendChart" class="line-chart"></div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <section class="card list-card">
+    <div class="card-head">
+      <h2>Applications</h2>
+      <p>Search, filter, edit, and delete records.</p>
+    </div>
+
+    <div class="filters">
+      <label>
+        Search
+        <input id="searchInput" placeholder="Company or role" />
+      </label>
+      <label>
+        Status
+        <select id="statusFilter">
+          <option value="all">All</option>
+          <option value="applied">Applied</option>
+          <option value="in-progress">In Progress</option>
+          <option value="offer">Offer</option>
+          <option value="rejected">Rejected</option>
+          <option value="withdrawn">Withdrawn</option>
+        </select>
+      </label>
+      <label>
+        CV
+        <select id="cvFilter">
+          <option value="all">All</option>
+          <option value="cv-en.html">cv-en.html</option>
+          <option value="cv-de.html">cv-de.html</option>
+          <option value="cv-team-lead.html">cv-team-lead.html</option>
+          <option value="other">Other</option>
+        </select>
+      </label>
+      <button id="clearDataBtn" class="btn btn--danger" type="button">Clear All Data</button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Company</th>
+            <th>Position</th>
+            <th>Applied</th>
+            <th>Status</th>
+            <th>Stage</th>
+            <th>CV</th>
+            <th>Source</th>
+            <th>Rejection</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="applicationsTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
